@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/logJoinActivity">
+    <activity
+        android:id="@+id/logJoinActivity"
+        android:name="com.example.quantifen.LogJoinActivity"
+        android:label="activity_log_join"
+        tools:layout="@layout/activity_log_join" />
+</navigation>

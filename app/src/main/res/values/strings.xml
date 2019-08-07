@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Quantifen</string>
+    <string name="status">STATUS</string>
+    <string name="add_device">+ Add Device</string>
+</resources>
