@@ -1,6 +1,7 @@
 package com.example.quantifen;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -78,6 +79,9 @@ public class SignupActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
+
+        Intent intent = new Intent(SignupActivity.this, AboutYouActivity.class);
+        startActivity(intent);
     }
 
     public void onSignupSuccess() {
@@ -99,14 +103,14 @@ public class SignupActivity extends AppCompatActivity {
         String password = passwordText.getText().toString();
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailText.setError("enter a valid email address");
+            emailText.setError("Valid email address required");
             valid = false;
         } else {
             emailText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 16) {
-            passwordText.setError("between 4 and 10 alphanumeric characters");
+            passwordText.setError("Password must be between 4 and 16 alphanumeric characters long");
             valid = false;
         } else {
             passwordText.setError(null);

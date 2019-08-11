@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 public class LearnMenu extends AppCompatActivity {
 
+    private Button      locations;
     private TabLayout   quantifenTabs;
     private TabLayout.Tab   learnMenuTab;
 
@@ -14,6 +17,14 @@ public class LearnMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_menu);
+
+        locations = findViewById(R.id.maps);
+        locations.setOnClickListener(new View.OnClickListener(){
+           public void onClick(View view){
+               Intent intent = new Intent(LearnMenu.this, MapsActivity.class);
+               startActivity(intent);
+           }
+        });
 
         quantifenTabs = findViewById(R.id.tabs);
         learnMenuTab = quantifenTabs.getTabAt(2);

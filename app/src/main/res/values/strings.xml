@@ -2,4 +2,5 @@
     <string name="app_name">Quantifen</string>
     <string name="status">STATUS</string>
     <string name="add_device">+ Add Device</string>
+    <string name="title_activity_maps">Help Center Locations</string>
 </resources>

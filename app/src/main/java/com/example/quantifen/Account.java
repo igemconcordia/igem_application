@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
 public class Account extends AppCompatActivity {
 
     private Button          logoutButton;
@@ -24,8 +25,7 @@ public class Account extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 try {
-                    Intent intent = new Intent(Account.this, LogJoinActivity.class);
-                    startActivity(intent);
+                    logout();
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -88,6 +88,11 @@ public class Account extends AppCompatActivity {
             }
 
         });
+    }
+
+    public void logout(){
+        Intent intent = new Intent(Account.this, LogJoinActivity.class);
+        startActivity(intent);
     }
 
     public void onPause() {
