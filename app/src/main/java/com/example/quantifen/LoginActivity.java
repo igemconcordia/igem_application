@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
@@ -20,6 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText        passwordText;
     private Button          loginButton;
     private TextView        signupLink;
+
+    AccountDBHandler accountdbhandler = new AccountDBHandler(LoginActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +85,8 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
 
@@ -115,22 +122,36 @@ public class LoginActivity extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
+        final ArrayList<HashMap<String, String>> userList = accountdbhandler.GetUsers();
+
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
+
+        String emailverify = userList.get(0).get("email");
+        String passwordverify = userList.get(0).get("password");
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailText.setError("enter a valid email address");
             valid = false;
-        } else {
+        } else if (!email.contentEquals(emailverify)){
+            emailText.setError("Email or Password is incorrect");
+            passwordText.setError("Email or Password is incorrect");
+            valid = false;
+        }else{
             emailText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 16) {
             passwordText.setError("between 4 and 10 alphanumeric characters");
             valid = false;
-        } else {
+        } else if (!password.contentEquals(passwordverify)){
+            emailText.setError("Email or Password is incorrect");
+            passwordText.setError("Email or Password is incorrect");
+            valid = false;
+        }else{
             passwordText.setError(null);
         }
+
 
         return valid;
     }

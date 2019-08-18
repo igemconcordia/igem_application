@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         statusButton = findViewById(R.id.status_button);
         statusButton.setOnClickListener(new View.OnClickListener(){
 
@@ -113,4 +114,8 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
+    public void logout(){
+        Intent intent = new Intent(MainActivity.this, LogJoinActivity.class);
+        startActivity(intent);
+    }
 }

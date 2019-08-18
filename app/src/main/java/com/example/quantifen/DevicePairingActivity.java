@@ -69,6 +69,9 @@ public class DevicePairingActivity extends AppCompatActivity {
             listView.setAdapter(aAdapter);
         }
 
+        Intent intent = new Intent(DevicePairingActivity.this, MainActivity.class);
+        startActivity(intent);
+
         // Register for broadcasts when a device is discovered.
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(receiver, filter);

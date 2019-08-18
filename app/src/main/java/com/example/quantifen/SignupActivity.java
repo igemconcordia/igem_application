@@ -18,6 +18,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private EditText                emailText;
     private EditText                passwordText;
+    private EditText                confirmpasswordText;
     private Button                  signupButton;
     private TextView                loginLink;
 
@@ -29,6 +30,7 @@ public class SignupActivity extends AppCompatActivity {
 
         emailText = findViewById(R.id.input_email);
         passwordText = findViewById(R.id.input_password);
+        confirmpasswordText = findViewById(R.id.input_confirmpassword);
 
         signupButton = findViewById(R.id.btn_signup);
         signupButton.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +66,9 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        String email = emailText.getText().toString();
-        String password = passwordText.getText().toString();
+        String email = emailText.getText().toString().trim();
+        String password = passwordText.getText().toString().trim();
+        String confirmpassword = confirmpasswordText.getText().toString().trim();
 
         // TODO: Implement your own signup logic here.
 
@@ -81,6 +84,8 @@ public class SignupActivity extends AppCompatActivity {
                 }, 3000);
 
         Intent intent = new Intent(SignupActivity.this, AboutYouActivity.class);
+        intent.putExtra("email", email);
+        intent.putExtra("password", password);
         startActivity(intent);
     }
 
@@ -100,7 +105,8 @@ public class SignupActivity extends AppCompatActivity {
         boolean valid = true;
 
         String email = emailText.getText().toString();
-        String password = passwordText.getText().toString();
+        String password = passwordText.getText().toString().trim();
+        String confirmpassword = confirmpasswordText.getText().toString().trim();
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailText.setError("Valid email address required");
@@ -114,6 +120,11 @@ public class SignupActivity extends AppCompatActivity {
             valid = false;
         } else {
             passwordText.setError(null);
+        }
+
+        if(!password.contentEquals(confirmpassword)){
+            confirmpasswordText.setError("Password must match");
+            valid = false;
         }
 
         return valid;

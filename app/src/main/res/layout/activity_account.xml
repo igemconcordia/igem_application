@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".Account">
 
+    <Button
+        android:id="@+id/clear_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteY="62dp" />
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -104,6 +111,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:layout_gravity="center_vertical"
+                    android:inputType="textPassword"
                     android:text="Edit Password"
                     android:textSize="16dip"
                     android:textStyle=""/>
@@ -284,7 +292,7 @@
                     android:textSize="16dip"/>
 
                 <TextView
-                    android:id="@+id/fullname"
+                    android:id="@+id/emergency_contact_fullname"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
