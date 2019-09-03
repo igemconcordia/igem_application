@@ -1,128 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:theme="@style/noAnimTheme"
-        tools:context=".MainActivity">
-
-        <Button
-            android:id="@+id/status_button"
-            style="@android:style/Widget.DeviceDefault.Button"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/rounded_status_btn"
-            android:fontFamily="sans-serif"
-            android:onClick="status_button"
-            android:text="@string/status"
-            android:textAllCaps="false"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/tabs"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.25" />
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="0dp"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fitsSystemWindows="true">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            app:tabInlineLabel="false"
-            app:tabTextAppearance="@style/TabLayoutTheme"
-            app:tabUnboundedRipple="false">
+            android:orientation="vertical">
 
-            <android.support.design.widget.TabItem
-                android:id="@+id/status_tab"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/status_toolbar"
+                style="@style/AppTheme.Base"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/AppTheme"
+                android:visibility="visible"
+                app:title="Quantifen"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+            <TextView
+                android:id="@+id/see_graph_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:icon="@drawable/ic_equalizer"
-                android:text="Status" />
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:text="See Graphs"
+                android:textSize="20sp"
+                android:textColor="#1E90FF"/>
 
-            <android.support.design.widget.TabItem
-                android:id="@+id/camera_tab"
+            <Button
+                android:id="@+id/status_button"
+                style="@android:style/Widget.DeviceDefault.Button"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rounded_status_btn"
+                android:fontFamily="sans-serif"
+                android:text="@string/status"
+                android:textAllCaps="false"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:id="@+id/add_device_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_camera"
-                android:text="Camera" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/learn_tab"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:clickable="true"
+                android:text="+ Add Device"
+                android:textSize="20sp"
+                android:textColor="#1E90FF"/>
+            <TextView
+                android:id="@+id/fen_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_school"
-                android:text="Learn" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/account_tab"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp"
+                android:text="- data -"
+                android:textSize="30dp"
+                android:textColor="#32CD32"/>
+            <TextView
+                android:id="@+id/fen_data_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_person"
-                android:text="Account" />
+                android:layout_gravity="center_horizontal"
+                android:text="Fentanyl Level"/>
 
-        </android.support.design.widget.TabLayout>
+            <TextView
+                android:id="@+id/temp_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp"
+                android:text="- data -"
+                android:textSize="30dp"
+                android:textColor="#32CD32"/>
+            <TextView
+                android:id="@+id/temp_data_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Body Temperature"/>
+        </LinearLayout>
+    </ScrollView>
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/status_toolbar"
-            style="@style/AppTheme.Base"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/AppTheme"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/status_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:title="Quantifen"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:tabInlineLabel="false"
+        app:tabTextAppearance="@style/TabLayoutTheme"
+        app:tabUnboundedRipple="false">
 
-        <Button
-            android:id="@+id/add_device_button"
-            style="@style/Widget.AppCompat.Button.Borderless"
+        <android.support.design.widget.TabItem
+            android:id="@+id/status_tab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="+ Add Device"
-            android:textAppearance="@style/buttonText"
-            android:textColorHighlight="#4A86E8"
-            android:textColorHint="#4A86E8"
-            android:textColorLink="#4A86E8"
-            app:layout_constraintBottom_toTopOf="@+id/tabs"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.934"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/status_toolbar"
-            app:layout_constraintVertical_bias="0.507" />
+            android:adjustViewBounds="true"
+            android:icon="@drawable/ic_equalizer"
+            android:text="Status" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/camera_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_camera"
+            android:text="Camera" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/learn_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_school"
+            android:text="Learn" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/account_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_person"
+            android:text="Account" />
+
+    </android.support.design.widget.TabLayout>
 
 
-    </android.support.constraint.ConstraintLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+</android.support.constraint.ConstraintLayout>

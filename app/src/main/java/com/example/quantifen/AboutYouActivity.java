@@ -108,7 +108,7 @@ public class AboutYouActivity extends AppCompatActivity {
                 AccountDBHandler accountdbhandler = new AccountDBHandler(AboutYouActivity.this);
                 accountdbhandler.insertUserDetails(email, password, gname, fname, birthday, height, weight, phone, ename, ephone, eemail);
 
-                Intent intent = new Intent(AboutYouActivity.this, DevicePairingActivity.class);
+                Intent intent = new Intent(AboutYouActivity.this, BluetoothActivity.class);
                 startActivity(intent);
                 Toast.makeText(getApplicationContext(), "Details Inserted Successfully", Toast.LENGTH_SHORT).show();
             }

@@ -6,6 +6,105 @@
     android:layout_height="match_parent"
     tools:context=".CameraMenu">
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:fitsSystemWindows="true"
+        app:layout_constraintBottom_toTopOf="@+id/tabs"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/camera_menu_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="20dp"
+                android:text="Let's Analyze Your Patch"
+                android:gravity="center"
+                android:textSize="28dip"
+                android:fontFamily="sans-serif"/>
+
+            <TextView
+                android:id="@+id/camera_instructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:text="We need to use a picture of your Quantifen patch to measure its color change. To help with the analysis of the patch, we need the picture to be: "
+                android:gravity="left"
+                android:textSize="18dip"
+                android:fontFamily="sans-serif-light"/>
+
+            <TextView
+                android:id="@+id/lighting_criteria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="18dp"
+                android:text="- Taken under good lighting or with the camera's flash on"
+                android:gravity="left"
+                android:textSize="18dip"
+                android:fontFamily="sans-serif-light"/>
+
+            <TextView
+                android:id="@+id/patch_visibility_criteria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="18dp"
+                android:text="- Showing the whole patch."
+                android:gravity="left"
+                android:textSize="18dip"
+                android:fontFamily="sans-serif-light"/>
+
+            <Button
+                android:id="@+id/camera_picture_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="90dp"
+                android:layout_marginRight="90dp"
+                android:background="#08AE9E"
+                android:lines="4"
+                android:singleLine="false"
+                android:soundEffectsEnabled="false"
+                android:text=" Take Picture With Camera "
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="20dip"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/picture_gallery_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="90dp"
+                android:layout_marginRight="90dp"
+                android:background="#08AE9E"
+                android:lines="4"
+                android:text="Get Picture From Gallery"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="20dip"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </ScrollView>
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="0dp"
@@ -54,60 +153,4 @@
             android:text="Account" />
 
     </android.support.design.widget.TabLayout>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Let's Analyze Your Patch"
-        android:textAppearance="@style/GeneralTitleTheme"
-        app:layout_constraintBottom_toTopOf="@+id/tabs"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.035" />
-
-    <Button
-        android:id="@+id/camera_picture_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#08AE9E"
-        android:lines="3"
-        android:singleLine="false"
-        android:soundEffectsEnabled="false"
-        android:text=" Take Picture With Camera "
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textAppearance="@style/GeneralButtonText"
-        app:layout_constraintBottom_toTopOf="@+id/tabs"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Button
-        android:id="@+id/picture_gallery_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#08AE9E"
-        android:lines="3"
-        android:text="Get Picture From Gallery"
-        android:textAllCaps="false"
-        android:textAppearance="@style/GeneralButtonText"
-        app:layout_constraintBottom_toTopOf="@+id/tabs"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/camera_picture_button" />
 </android.support.constraint.ConstraintLayout>

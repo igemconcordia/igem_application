@@ -97,7 +97,7 @@ public class Account extends AppCompatActivity {
                 View mView = layoutInflaterAndroid.inflate(R.layout.user_dialog_input_email, null);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Account.this);
                 alertDialogBuilder.setView(mView);
-                long update = accountdbhandler.UpdateUserDetails(1, "height", "111");
+                long update = accountdbhandler.UpdateUserDetails(1, "height", "111"); //For testing
                 System.out.println(update+"\n");
                 emailText.setText(userList.get(0).get("email"));
 

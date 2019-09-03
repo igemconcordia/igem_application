@@ -1,25 +1,40 @@
 package com.example.quantifen;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import static com.example.quantifen.BluetoothLeService.concentrationData;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button          statusButton;
-    private Button          addDeviceButton;
     private TabLayout       quantifenTabs;
     private TabLayout.Tab   statusTab;
+
+    private TextView        seeGraphsLink;
+    private TextView        addDeviceLink;
+    private TextView        fentanylData;
+    private TextView        temperatureData;
+
+    private static final int STATE_MESSAGE_RECEIVED = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fentanylData = findViewById(R.id.fen_data);
+        temperatureData = findViewById(R.id.temp_data);
 
         statusButton = findViewById(R.id.status_button);
         statusButton.setOnClickListener(new View.OnClickListener(){
@@ -36,14 +51,15 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        addDeviceButton = findViewById(R.id.add_device_button);
-        addDeviceButton.setOnClickListener(new View.OnClickListener(){
+        addDeviceLink = findViewById(R.id.add_device_link);
+        addDeviceLink.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view){
                 try{
-                    Intent intent = new Intent(MainActivity.this, DevicePairingActivity.class);
+                    Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
                     startActivity(intent);
+
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -107,7 +123,26 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        final Handler dataHandler = new Handler();
+        final int delay = 1000; //milliseconds
+
+        dataHandler.postDelayed(new Runnable(){
+            public void run(){
+                //do something
+                //System.out.println(concentrationData+"\n");
+
+                fentanylData.setText(concentrationData.trim() + " ppm");
+                temperatureData.setText(BluetoothLeService.temperatureData.trim() + "°C");
+                if(!BluetoothLeService.color.equals("")) {
+                    fentanylData.setTextColor(Color.parseColor(BluetoothLeService.color.trim()));
+                    statusButton.setBackgroundColor(Color.parseColor(BluetoothLeService.color.trim()));
+                }
+                dataHandler.postDelayed(this, delay);
+            }
+        }, delay);
+
     }
+
 
     public void onPause(){
         super.onPause();
@@ -118,4 +153,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, LogJoinActivity.class);
         startActivity(intent);
     }
+
 }
