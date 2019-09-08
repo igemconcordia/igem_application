@@ -145,14 +145,14 @@ public class CameraMenu extends AppCompatActivity {
                 case GALLERY_REQUEST_CODE:
                     //data.getData returns the content URI for the selected Image
                     Uri selectedImage = data.getData();
-                    Intent intent = new Intent(CameraMenu.this, PictureAnalysisActivity.class);
+                    Intent intent = new Intent(CameraMenu.this, CropActivity.class);
                     intent.putExtra("image",selectedImage.toString());
                     startActivity(intent);
                     break;
                 case REQUEST_IMAGE_CAPTURE:
                     Bundle extras = data.getExtras();
                     Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    Intent intentc = new Intent(CameraMenu.this, PictureAnalysisActivity.class);
+                    Intent intentc = new Intent(CameraMenu.this, CropActivity.class);
                     intentc.putExtra("data",imageBitmap);
                     startActivity(intentc);
             }

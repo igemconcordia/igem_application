@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/quantifen"
-    tools:context=".PictureAnalysisActivity">
+    tools:context=".CropActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,40 +19,27 @@
             android:layout_marginBottom="20dp"
             android:textSize="20sp"
             android:textColor="@color/white"
-            android:text="Here We Analyze Your Patch"
+            android:text="Align the patch with the edge"
             android:fontFamily="sans-serif"/>
-
-        <ImageView
+        <com.example.quantifen.ImageCroppingView
             android:id="@+id/patch_picture"
             android:layout_width="280dp"
             android:layout_height="280dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"/>
-
-        <TextView
-            android:id="@+id/color_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="18dp"
-            android:text="Click Analyze to Start"
-            android:textColor="@color/white"
-            android:textSize="20sp"/>
-
         <Button
-            android:id="@+id/analyse_button"
+            android:id="@+id/crop_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="18dp"
             android:background="@color/white"
             android:fontFamily="sans-serif"
-            android:text="Analyze"
+            android:text="Continue"
             android:textAllCaps="false"
             android:textColor="@color/quantifen"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

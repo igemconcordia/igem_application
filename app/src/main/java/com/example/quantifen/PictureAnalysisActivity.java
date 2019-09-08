@@ -2,6 +2,7 @@ package com.example.quantifen;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.FileInputStream;
+import java.util.Arrays;
 
 public class PictureAnalysisActivity extends AppCompatActivity {
 
@@ -34,14 +38,17 @@ public class PictureAnalysisActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if(intent.hasExtra("image")) {
-            String image_path = intent.getStringExtra("image");
-            Uri selectedImage = Uri.parse(image_path);
-            patchPicture.setImageURI(selectedImage);
-        }else if (intent.hasExtra("data")) {
-            Bitmap bitmap = (Bitmap) intent.getParcelableExtra("data");
-            patchPicture.setImageBitmap(bitmap);
+        Bitmap bmp = null;
+        String filename = getIntent().getStringExtra("image");
+        try {
+            FileInputStream is = this.openFileInput(filename);
+            bmp = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        patchPicture.setImageBitmap(bmp);
 
         patchPicture.setDrawingCacheEnabled(true);
         patchPicture.buildDrawingCache(true);
@@ -83,6 +90,8 @@ public class PictureAnalysisActivity extends AppCompatActivity {
                                         RGB[h][w][1] = g;
                                         RGB[h][w][2] = b;
 
+                                        /*
+                                        //Detecting green
                                         if(r < 155 && r > -1){
                                             if(g < 256 && g > 99){
                                                 if(b < 171 && b > -1){
@@ -90,6 +99,16 @@ public class PictureAnalysisActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
+                                        */
+
+                                        if(r < 187 && r > -1){
+                                            if(g < 113 && g > -1 ){
+                                                if(b < 256 && b > 127){
+                                                    gcount++;
+                                                }
+                                            }
+                                        }
+
                                         count++;
                                     }
                                 }
@@ -99,7 +118,7 @@ public class PictureAnalysisActivity extends AppCompatActivity {
                                 System.out.println(gcount+"\n");
                                 System.out.println(count+"\n");
                             }
-                        }, 2000);
+                        }, 50);
             }
         });
 
