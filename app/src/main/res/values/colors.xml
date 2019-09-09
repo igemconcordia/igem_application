@@ -11,4 +11,7 @@
     <color name="quantifen">#08AE9E</color>
     <color name="red">#FF0000</color>
     <color name="lightskyblue">	#87CEFA</color>
+    <color name="darkGreen">#006400</color>
+    <color name="darkBlue">#00008B</color>
+    <color name="darkRed">#8B0000</color>
 </resources>

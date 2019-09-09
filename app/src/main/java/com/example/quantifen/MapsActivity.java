@@ -18,7 +18,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -43,6 +45,8 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.util.ArrayList;
+
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, com.google.android.gms.location.LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -62,6 +66,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng myLocation;
     private boolean isPermission;
     private GoogleApiClient mGoogleApiClient;
+
+    private Button  injectionSitesButton;
+    private Button  rehabilitationCentersButton;
+    private Button  naloxoneSitesButton;
+
+    ArrayList<LatLng> injectionSites = new ArrayList<>();
+    ArrayList<LatLng> rehabilitationCenters = new ArrayList<>();
+    ArrayList<LatLng> naloxoneSites = new ArrayList<>();
+
+    ArrayList<String> injectionSitesName = new ArrayList<>();
+    ArrayList<String> rehabilitationCentersName = new ArrayList<>();
+    ArrayList<String> naloxoneSitesName = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //mMap.setOnMyLocationClickListener(onMyLocationClickListener);
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.setMinZoomPreference(11);
+        //mMap.setMinZoomPreference(11);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -109,9 +125,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         mMap.setMyLocationEnabled(true);
 
+        addSites();
+
+        injectionSitesButton = findViewById(R.id.injection_sites_button);
+        rehabilitationCentersButton = findViewById(R.id.rehabilitation_centers_button);
+        naloxoneSitesButton = findViewById(R.id.nalozone_sites_button);
+
+        injectionSitesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addMarkerToSites(mMap, injectionSites, injectionSitesName, 1);
+            }
+        });
+
+        rehabilitationCentersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addMarkerToSites(mMap, rehabilitationCenters, rehabilitationCentersName, 2);
+            }
+        });
+
+        naloxoneSitesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addMarkerToSites(mMap, naloxoneSites, naloxoneSitesName, 3);
+            }
+        });
+
+
         // Add a marker in Sydney and move the camera
         LatLng quantifenhq = new LatLng(45.457004, -73.640360);
-        mMap.addMarker(new MarkerOptions().position(quantifenhq).title("Quantifen HQ"));
+        mMap.addMarker(new MarkerOptions().position(quantifenhq).title("Quantifen HQ").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(quantifenhq));
 
         if(myLocation != null){
@@ -294,4 +338,54 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             };
 */
+
+    public void addSites(){
+        //Add injection sites
+        injectionSites.add(new LatLng(45.521830, -73.561813)); //Spectre de Rue Inc
+        injectionSites.add(new LatLng(45.510479, -73.562403)); //Cactus Montreal
+        injectionSitesName.add("Spectre de Rue Inc");
+        injectionSitesName.add("Cactus Montreal");
+
+        rehabilitationCenters.add(new LatLng(45.666410, -73.494427)); //Centre de réadaptation en dépendance de Montréal
+        rehabilitationCenters.add(new LatLng(45.512281, -73.573758)); //Centre de réadaptation en dépendance de Montréal
+        rehabilitationCenters.add(new LatLng(45.553975, -73.648598)); //Centre de réadaptation en dépendance de Montréal
+        rehabilitationCenters.add(new LatLng(45.465675, -73.627886)); //Head & Hands
+        rehabilitationCenters.add(new LatLng(45.503055, -73.569286)); //PsyMontréal - Psychologist
+        rehabilitationCenters.add(new LatLng(45.510478, -73.562404)); //Cactus Montréal
+        rehabilitationCenters.add(new LatLng(45.486077, -73.588120)); //Chubikphysio
+        rehabilitationCenters.add(new LatLng(45.521830, -73.561814)); //Spectre de Rue Inc
+        rehabilitationCenters.add(new LatLng(45.499825, -73.573489)); //
+
+        rehabilitationCentersName.add("Centre de réadaptation en dépendance de Montréal");
+        rehabilitationCentersName.add("Centre de réadaptation en dépendance de Montréal");
+        rehabilitationCentersName.add("Centre de réadaptation en dépendance de Montréal");
+        rehabilitationCentersName.add("Head & Hands");
+        rehabilitationCentersName.add("PsyMontréal - Psychologist");
+        rehabilitationCentersName.add("Cactus Montréal");
+        rehabilitationCentersName.add("Chubikphysio");
+        rehabilitationCentersName.add("Spectre de Rue Inc");
+        rehabilitationCentersName.add(" ");
+
+        naloxoneSites.add(new LatLng(45.520575, -73.626332)); //1365 Beaumont Ave
+
+        naloxoneSitesName.add("1365 Beaumont Ave");
+
+    }
+
+    public void addMarkerToSites(GoogleMap mMap, ArrayList<LatLng> locations, ArrayList<String> locationName, int code){
+
+        if (code == 1) {
+            for (int i = 0; i < locations.size(); i++) {
+                mMap.addMarker(new MarkerOptions().position(locations.get(i)).title(locationName.get(i)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            }
+        }else if (code == 2){
+            for (int i = 0; i < locations.size(); i++) {
+                mMap.addMarker(new MarkerOptions().position(locations.get(i)).title(locationName.get(i)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            }
+        }else if(code == 3){
+            for (int i = 0; i < locations.size(); i++) {
+                mMap.addMarker(new MarkerOptions().position(locations.get(i)).title(locationName.get(i)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            }
+        }
+    }
 }
