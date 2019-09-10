@@ -79,6 +79,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ArrayList<String> rehabilitationCentersName = new ArrayList<>();
     ArrayList<String> naloxoneSitesName = new ArrayList<>();
 
+    LatLng quantifenhq = new LatLng(45.457004, -73.640360);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,27 +136,68 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         injectionSitesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addMarkerToSites(mMap, injectionSites, injectionSitesName, 1);
+                if(injectionSitesButton.getText().equals("Show\nInjection Sites")){
+                    addMarkerToSites(mMap, injectionSites, injectionSitesName, 1);
+                    injectionSitesButton.setText("Hide\nInjection Sites");
+                }else if(injectionSitesButton.getText().equals("Hide\nInjection Sites")){
+                    mMap.clear();
+                    injectionSitesButton.setText("Show\nInjection Sites");
+                    mMap.addMarker(new MarkerOptions().position(quantifenhq).title("Quantifen HQ").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                    if(rehabilitationCentersButton.getText().equals("Hide\nRehabilitation Centers")){
+                        addMarkerToSites(mMap, rehabilitationCenters, rehabilitationCentersName, 2);
+                    }
+                    if(naloxoneSitesButton.getText().equals("Hide\nNaloxone Sites")){
+                        addMarkerToSites(mMap, naloxoneSites, naloxoneSitesName, 3);
+                    }
+                }
             }
         });
+
 
         rehabilitationCentersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addMarkerToSites(mMap, rehabilitationCenters, rehabilitationCentersName, 2);
+                if(rehabilitationCentersButton.getText().equals("Show\nRehabilitation Centers")){
+                    addMarkerToSites(mMap, rehabilitationCenters, rehabilitationCentersName, 2);
+                    rehabilitationCentersButton.setText("Hide\nRehabilitation Centers");
+                }else if(rehabilitationCentersButton.getText().equals("Hide\nRehabilitation Centers")){
+                    mMap.clear();
+                    rehabilitationCentersButton.setText("Show\nRehabilitation Centers");
+                    mMap.addMarker(new MarkerOptions().position(quantifenhq).title("Quantifen HQ").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                    if(injectionSitesButton.getText().equals("Hide\nInjection Sites")){
+                        addMarkerToSites(mMap, injectionSites, injectionSitesName, 1);
+                    }
+                    if(naloxoneSitesButton.getText().equals("Hide\nNaloxone Sites")){
+                        addMarkerToSites(mMap, naloxoneSites, naloxoneSitesName, 3);
+                    }
+                }
+
             }
         });
 
         naloxoneSitesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addMarkerToSites(mMap, naloxoneSites, naloxoneSitesName, 3);
+                if(naloxoneSitesButton.getText().equals("Show\nNaloxone Sites")){
+                    addMarkerToSites(mMap, naloxoneSites, naloxoneSitesName, 3);
+                    naloxoneSitesButton.setText("Hide\nNaloxone Sites");
+                }else if(naloxoneSitesButton.getText().equals("Hide\nNaloxone Sites")){
+                    mMap.clear();
+                    naloxoneSitesButton.setText("Show\nNaloxone Sites");
+                    mMap.addMarker(new MarkerOptions().position(quantifenhq).title("Quantifen HQ").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                    if(injectionSitesButton.getText().equals("Hide\nInjection Sites")){
+                        addMarkerToSites(mMap, injectionSites, injectionSitesName, 1);
+                    }
+                    if(rehabilitationCentersButton.getText().equals("Hide\nRehabilitation Centers")){
+                        addMarkerToSites(mMap, rehabilitationCenters, rehabilitationCentersName, 2);
+                    }
+                }
+
             }
         });
 
 
         // Add a marker in Sydney and move the camera
-        LatLng quantifenhq = new LatLng(45.457004, -73.640360);
         mMap.addMarker(new MarkerOptions().position(quantifenhq).title("Quantifen HQ").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(quantifenhq));
 
