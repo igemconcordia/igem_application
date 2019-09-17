@@ -44,6 +44,7 @@ public class EmergencyActivity extends AppCompatActivity {
 
     AccountDBHandler accountdbhandler = new AccountDBHandler(EmergencyActivity.this);
 
+    ArrayList<HashMap<String, String>> userList = accountdbhandler.GetUsers();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +53,11 @@ public class EmergencyActivity extends AppCompatActivity {
         call911Button = findViewById(R.id.call_emergency_services);
         callEmergencyContactButton = findViewById(R.id.call_emergency_contact);
 
-        final ArrayList<HashMap<String, String>> userList = accountdbhandler.GetUsers();
+
 
         if(!userList.isEmpty()){
-            String ephone = userList.get(0).get("ephone");
-            String ename = userList.get(0).get("ename");
+            String ephone = userList.get(User.getId()).get("ephone");
+            String ename = userList.get(User.getId()).get("ename");
             callEmergencyContactButton.setText("CALL " + ename);
         }
 
@@ -102,13 +103,13 @@ public class EmergencyActivity extends AppCompatActivity {
                 }
 
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:" + "514-618-5033"));
+                callIntent.setData(Uri.parse("tel:" + userList.get(User.getId()).get("ephone")));
                 startActivity(callIntent);
 
             }
             else {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:" + "514-618-5033"));
+                callIntent.setData(Uri.parse("tel:" + userList.get(User.getId()).get("ephone")));
                 startActivity(callIntent);
             }
         }
@@ -126,7 +127,7 @@ public class EmergencyActivity extends AppCompatActivity {
         String emergencyTextMessage = "This is a message from Quantifen.";
         try{
             SmsManager smgr = SmsManager.getDefault();
-            smgr.sendTextMessage("5146185033",null,emergencyTextMessage,null,null);
+            smgr.sendTextMessage(userList.get(User.getId()).get("ephone"),null,emergencyTextMessage,null,null);
             Toast.makeText(EmergencyActivity.this, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
         }
         catch (Exception e){

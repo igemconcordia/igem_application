@@ -12,6 +12,8 @@ import java.util.HashMap;
 
 public class AccountDBHandler extends SQLiteOpenHelper {
 
+    private long update;
+
     private static final int        DB_VERSION = 3;
     private static final String     DB_NAME = "accountdb";
     private static final String     TABLE_Users = "accountdetails";
@@ -147,15 +149,15 @@ public class AccountDBHandler extends SQLiteOpenHelper {
     }
 
     // Update User Details
-    public long UpdateUserDetails(long id, String key, String value) {
+    public long UpdateUserDetails(int id, String key, String value) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cVals = new ContentValues();
         String[] whereArgs = {String.valueOf(id)};
-        long update = 0;
         if (key.contentEquals(KEY_HEI)) {
             cVals.put(KEY_HEI, value);
             update = db.update(TABLE_Users, cVals, KEY_ID+" = ?" , null);
-            System.out.println(value + "\n");
+            System.out.println(value + "hello\n");
+            System.out.println(update+"\n");
 
         }
         return update;

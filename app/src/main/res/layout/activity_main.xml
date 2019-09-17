@@ -25,7 +25,6 @@
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/AppTheme"
                 android:visibility="visible"
-                app:title="Quantifen"
                 app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
             <TextView

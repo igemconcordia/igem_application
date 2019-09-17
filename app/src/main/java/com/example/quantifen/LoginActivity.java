@@ -18,6 +18,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    private static final int EMAIL_VALID = 100;
+    private static final int PASSWORD_VALID = 101;
 
     private EditText        emailText;
     private EditText        passwordText;
@@ -121,35 +123,44 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean validate() {
         boolean valid = true;
+        int emailVerify = 0;
+        int passwordVerify = 0;
 
         final ArrayList<HashMap<String, String>> userList = accountdbhandler.GetUsers();
 
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
 
-        String emailverify = userList.get(0).get("email");
-        String passwordverify = userList.get(0).get("password");
+        if (!userList.isEmpty()){
+            for (int i = 0; i <userList.size(); i++) {
+                if (userList.get(i).get("email").equals(email)) {
+                    emailText.setError(null);
+                    emailVerify = EMAIL_VALID;
+                    if (userList.get(i).get("password").equals(password)){
+                        passwordText.setError(null);
+                        passwordVerify = PASSWORD_VALID;
+                        User.setId(i);
+                    }
+                }
+            }
+        }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailText.setError("enter a valid email address");
             valid = false;
-        } else if (!email.contentEquals(emailverify)){
+        } else if (emailVerify != EMAIL_VALID){
             emailText.setError("Email or Password is incorrect");
             passwordText.setError("Email or Password is incorrect");
             valid = false;
-        }else{
-            emailText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 16) {
             passwordText.setError("between 4 and 10 alphanumeric characters");
             valid = false;
-        } else if (!password.contentEquals(passwordverify)){
+        } else if (passwordVerify != PASSWORD_VALID){
             emailText.setError("Email or Password is incorrect");
             passwordText.setError("Email or Password is incorrect");
             valid = false;
-        }else{
-            passwordText.setError(null);
         }
 
 

@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class AboutYouActivity extends AppCompatActivity {
@@ -107,6 +109,14 @@ public class AboutYouActivity extends AppCompatActivity {
 
                 AccountDBHandler accountdbhandler = new AccountDBHandler(AboutYouActivity.this);
                 accountdbhandler.insertUserDetails(email, password, gname, fname, birthday, height, weight, phone, ename, ephone, eemail);
+
+                ArrayList<HashMap<String, String>> userList = accountdbhandler.GetUsers();
+
+                for (int i = 0; i < userList.size(); i++) {
+                    if (userList.get(i).get("email").equals(email)) {
+                        User.setId(i);
+                    }
+                }
 
                 Intent intent = new Intent(AboutYouActivity.this, BluetoothActivity.class);
                 startActivity(intent);

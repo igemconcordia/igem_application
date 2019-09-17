@@ -12,9 +12,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "SignupActivity";
+    private static final int EMAIL_EXISTS = 100;
 
     private EditText                emailText;
     private EditText                passwordText;
@@ -22,6 +26,7 @@ public class SignupActivity extends AppCompatActivity {
     private Button                  signupButton;
     private TextView                loginLink;
 
+    AccountDBHandler accountdbhandler = new AccountDBHandler(SignupActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,7 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 }, 3000);
 
+
         Intent intent = new Intent(SignupActivity.this, AboutYouActivity.class);
         intent.putExtra("email", email);
         intent.putExtra("password", password);
@@ -103,14 +109,27 @@ public class SignupActivity extends AppCompatActivity {
 
     public boolean validate() {
         boolean valid = true;
+        int errCode = 0;
 
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString().trim();
         String confirmpassword = confirmpasswordText.getText().toString().trim();
 
+        ArrayList<HashMap<String, String>> userList = accountdbhandler.GetUsers();
+
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).get("email").equals(email)) {
+                errCode = EMAIL_EXISTS;
+            }
+        }
+
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailText.setError("Valid email address required");
             valid = false;
+        }else if(errCode == EMAIL_EXISTS){
+            emailText.setError("Account with this email already exists");
+            valid = false;
+
         } else {
             emailText.setError(null);
         }

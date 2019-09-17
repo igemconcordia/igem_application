@@ -6,17 +6,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class LearnMenu extends AppCompatActivity {
 
     private Button      locations;
+    private Button      igemConcordiaButton;
     private TabLayout   quantifenTabs;
     private TabLayout.Tab   learnMenuTab;
+
+    private TextView    factText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_menu);
+
+        factText = findViewById(R.id.fact_text);
+        igemConcordiaButton = findViewById(R.id.igem_concordia_button);
 
         locations = findViewById(R.id.maps);
         locations.setOnClickListener(new View.OnClickListener(){

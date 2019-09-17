@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.example.quantifen.BluetoothLeService.concentrationData;
 
@@ -26,15 +30,25 @@ public class MainActivity extends AppCompatActivity {
     private TextView        fentanylData;
     private TextView        temperatureData;
 
+    private Toolbar         mainToolbar;
+
     private static final int STATE_MESSAGE_RECEIVED = 1;
+
+    AccountDBHandler accountdbhandler = new AccountDBHandler(MainActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final ArrayList<HashMap<String, String>> userList = accountdbhandler.GetUsers();
+
         fentanylData = findViewById(R.id.fen_data);
         temperatureData = findViewById(R.id.temp_data);
+
+        mainToolbar = findViewById(R.id.status_toolbar);
+
+        mainToolbar.setTitle("Hello " + userList.get(User.getId()).get("gname") + "!");
 
         statusButton = findViewById(R.id.status_button);
         statusButton.setOnClickListener(new View.OnClickListener(){
@@ -130,9 +144,13 @@ public class MainActivity extends AppCompatActivity {
             public void run(){
                 //do something
                 //System.out.println(concentrationData+"\n");
+                if(!concentrationData.trim().isEmpty()) {
+                    fentanylData.setText(concentrationData.trim() + " ppm");
+                }
+                if(!BluetoothLeService.temperatureData.trim().isEmpty()){
+                    temperatureData.setText(BluetoothLeService.temperatureData.trim() + "°C");
+                }
 
-                fentanylData.setText(concentrationData.trim() + " ppm");
-                temperatureData.setText(BluetoothLeService.temperatureData.trim() + "°C");
                 if(!BluetoothLeService.color.equals("")) {
                     fentanylData.setTextColor(Color.parseColor(BluetoothLeService.color.trim()));
                     statusButton.setBackgroundColor(Color.parseColor(BluetoothLeService.color.trim()));

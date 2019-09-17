@@ -21,6 +21,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 
 public class Account extends AppCompatActivity {
@@ -65,16 +66,17 @@ public class Account extends AppCompatActivity {
         final ArrayList<HashMap<String, String>> userList = accountdbhandler.GetUsers();
 
         if (!userList.isEmpty()){
-            String email = userList.get(0).get("email");
-            String password = userList.get(0).get("password");
-            String name = userList.get(0).get("gname") + " " + userList.get(0).get("fname");
-            String birthday = userList.get(0).get("birthday");
-            String height = userList.get(0).get("height");
-            String weight = userList.get(0).get("weight");
-            String phone = userList.get(0).get("phone");
-            String ename = userList.get(0).get("ename");
-            String ephone = userList.get(0).get("ephone");
-            String eemail = userList.get(0).get("eemail");
+
+            String email = userList.get(User.getId()).get("email");
+            String password = userList.get(User.getId()).get("password");
+            String name = userList.get(User.getId()).get("gname") + " " + userList.get(User.getId()).get("fname");
+            String birthday = userList.get(User.getId()).get("birthday");
+            String height = userList.get(User.getId()).get("height");
+            String weight = userList.get(User.getId()).get("weight");
+            String phone = userList.get(User.getId()).get("phone");
+            String ename = userList.get(User.getId()).get("ename");
+            String ephone = userList.get(User.getId()).get("ephone");
+            String eemail = userList.get(User.getId()).get("eemail");
 
             emailText.setText(email);
             passwordText.setText(password);
@@ -97,9 +99,15 @@ public class Account extends AppCompatActivity {
                 View mView = layoutInflaterAndroid.inflate(R.layout.user_dialog_input_email, null);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Account.this);
                 alertDialogBuilder.setView(mView);
-                long update = accountdbhandler.UpdateUserDetails(1, "height", "111"); //For testing
-                System.out.println(update+"\n");
-                emailText.setText(userList.get(0).get("email"));
+
+                String oldEmail = userList.get(User.getId()).get("email");
+                System.out.println(oldEmail);
+
+                userList.get(User.getId()).replace("email", oldEmail, "listeven@hotmail.fr");
+                accountdbhandler.UpdateUserDetails(User.getId(), "height", "111"); //For testing
+                //System.out.println(update+"\n");
+
+                emailText.setText(userList.get(User.getId()).get("email"));
 
                 final EditText userInputDialogEmailText = (EditText) mView.findViewById(R.id.userInputDialog);
                 alertDialogBuilder
